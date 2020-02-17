@@ -9,6 +9,7 @@ exports.getAllTours = async (req, res) => {
   try {
     const queryObj = { ...req.query };
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
+    // delete the obove fields from the queryobj 
     excludeFields.forEach(el => delete queryObj[el]);
 
     console.log(req.query, queryObj);

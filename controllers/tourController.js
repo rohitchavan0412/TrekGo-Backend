@@ -7,7 +7,12 @@ exports.getAllTours = async (req, res) => {
   //read the data from database.find() method reads all the data from the database
   //find will return array of data and also converts the data in javaScript object
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    const excludeFields = ['page', 'sort', 'limit', 'fields'];
+    excludeFields.forEach(el => delete queryObj[el]);
+
+    console.log(req.query, queryObj);
+    const tours = await Tour.find(queryObj);
 
     res.status(200).json({
       status: 'success',

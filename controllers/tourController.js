@@ -7,13 +7,28 @@ exports.getAllTours = async (req, res) => {
   //read the data from database.find() method reads all the data from the database
   //find will return array of data and also converts the data in javaScript object
   try {
+    // 1) Filtering
     const queryObj = { ...req.query };
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    // delete the obove fields from the queryobj 
+    // delete the obove fields from the queryobj
     excludeFields.forEach(el => delete queryObj[el]);
 
-    console.log(req.query, queryObj);
-    const tours = await Tour.find(queryObj);
+    // Advanced filtering
+    let querystr = JSON.stringify(queryObj);
+    querystr = querystr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    //console.log(JSON.parse(querystr));
+    let query = Tour.find(JSON.parse(querystr));
+
+    // 2) Sorting
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      // console.log(sortBy);
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-createdAt');
+    }
+
+    const tours = await query;
 
     res.status(200).json({
       status: 'success',

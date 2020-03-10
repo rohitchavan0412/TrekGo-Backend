@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please Enter a password'],
-    minlength: 8
+    minlength: 8,
+    select: false // this password filed will not be shown in the output by doing select = false
   },
   passwordConfirm: {
     type: String,
@@ -45,6 +46,14 @@ userSchema.pre('save', async function(next) {
   this.passwordConfirm = undefined;
   next();
 });
+
+//It is an instance method ,this method will be available on all the document of the collection
+userSchema.methods.correctPassword = async function(
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 

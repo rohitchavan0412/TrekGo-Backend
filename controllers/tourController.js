@@ -106,6 +106,8 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
   });
 });
 
+//https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+
 //TO build a route for the data to be group and analysis it
 exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
@@ -136,12 +138,18 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
   });
 });
 
+//https://docs.mongodb.com/manual/reference/operator/aggregation/unwind/index.html
+//https://docs.mongodb.com/manual/reference/operator/aggregation/project/index.html
+//https://docs.mongodb.com/manual/reference/operator/aggregation/addFields/
+
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year * 1;
 
   const plan = await Tour.aggregate([
     {
-      $unwind: '$startDates'
+      //Deconstructs an array field from the input documents to output a document for each element.
+      //Each output document is the input document with the value of the array field replaced by the element.
+      $unwind: '$startDates' //
     },
     {
       $match: {

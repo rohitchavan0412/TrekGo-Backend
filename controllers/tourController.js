@@ -37,11 +37,11 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 //Displays a tour by ID
+//https://mongoosejs.com/docs/populate.html
 exports.getTour = catchAsync(async (req, res, next) => {
   //Tour.findOne({ _id: req.params.id}) its short hande is findById()
 
-  const tour = await Tour.findById(req.params.id);
-
+  const tour = await Tour.findById(req.params.id)
   if (!tour) {
     return next(new AppError('No Tour found with that id', 404));
   }

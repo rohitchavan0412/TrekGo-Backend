@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator');
 
+
 const tourschema = new mongoose.Schema(
   {
     name: {
@@ -47,7 +48,7 @@ const tourschema = new mongoose.Schema(
     priceDiscount: {
       type: Number,
       validate: {
-        validator: function(val) {
+        validator: function (val) {
           // Does not work when we update the document
           return val < this.price;
         },
@@ -77,7 +78,36 @@ const tourschema = new mongoose.Schema(
     secretTour: {
       type: Boolean,
       default: false
-    }
+    },
+    startLocation: {
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point']
+      },
+      coordinates: [Number],
+      address: String,
+      description: String
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point']
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number
+      }
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     toJSON: { virtuals: true },
@@ -87,16 +117,22 @@ const tourschema = new mongoose.Schema(
 
 // This is a opertional logic to show in the UI the total no of weeks
 //using Virtual it creates the entery in doucument model but does not store in actual database model
-tourschema.virtual('durationWeeks').get(function() {
+tourschema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
 //Document MiddleWare And will be called before saving the document in the database model
 // and runs before .save() and .create()
-tourschema.pre('save', function(next) {
+tourschema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
+// tourschema.pre('save', async function (next) {
+//   const guidesPromises = this.guides.map(async id => await User.findById(id))
+//   this.guides = await Promise.all(guidesPromises)
+//   next()
+// })
 
 // tourschema.pre('save', function(next){
 //   console.log('will save document')
@@ -109,20 +145,29 @@ tourschema.pre('save', function(next) {
 // })
 
 //Query MiddleWare
-tourschema.pre(/^find/, function(next) {
+tourschema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
   //this.start = Date.now();
   next();
 });
 
-tourschema.post(/^find/, function(docs, next) {
+tourschema.post(/^find/, function (docs, next) {
   //console.log(`Query took ${Date.now() - this.start} millisec`);
   // console.log(docs);
   next();
 });
 
+tourschema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt'
+  });
+
+  next()
+})
+
 // Aggregation middleware
-tourschema.pre('aggregate', function(next) {
+tourschema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
   next();
 });

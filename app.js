@@ -4,6 +4,7 @@ const morgan = require('morgan');
 //getting the Routers for the particular route file
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRouter')
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -74,6 +75,7 @@ app.use((req, res, next) => {
 //Router Mountaing
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter)
 
 app.all('*', (req, res, next) => {
   const err = new AppError(`Cant find ${req.originalUrl} on this server`, 404);

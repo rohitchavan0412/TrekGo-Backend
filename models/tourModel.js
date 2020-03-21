@@ -121,6 +121,13 @@ tourschema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// virtual populate
+tourschema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id'
+})
+
 //Document MiddleWare And will be called before saving the document in the database model
 // and runs before .save() and .create()
 tourschema.pre('save', function (next) {

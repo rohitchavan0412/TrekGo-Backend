@@ -17,19 +17,32 @@ router.patch(
   authController.updatePassword
 );
 
+router.get('/me', authController.protect, userController.getMe)
+
 router.patch('/updateMe', authController.protect, userController.updateMe);
 
 router.delete('/deleteMe', authController.protect, userController.deleteMe);
 
+// All route from this onward are protected and used by only admin
+//router.use(authController.restrictTo('admin'))
+
 router
   .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+  .get(authController.protect, authController.restrictTo('admin'), userController.getAllUsers)
 
 router
   .route('/:id')
-  .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .get(authController.protect,
+    authController.restrictTo('admin'),
+    userController.getUser
+  )
+  .patch(authController.protect,
+    authController.restrictTo('admin'),
+    userController.updateUser
+  )
+  .delete(authController.protect,
+    authController.restrictTo('admin'),
+    userController.deleteUser
+  );
 
 module.exports = router;

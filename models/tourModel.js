@@ -35,7 +35,8 @@ const tourschema = new mongoose.Schema(
       type: Number,
       default: 4.5,
       min: [1, 'Ratings must be above 1'],
-      max: [5, 'Ratings must be below 5']
+      max: [5, 'Ratings must be below 5'],
+      set: val => Math.round(val * 10) / 10
     },
     ratingsQuantity: {
       type: Number,
@@ -114,6 +115,11 @@ const tourschema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
+
+//tourschema.index({ price: 1 })
+tourschema.index({ price: 1, ratingsAverage: -1 }) //compound index
+tourschema.index({ slug: 1 })
+
 
 // This is a opertional logic to show in the UI the total no of weeks
 //using Virtual it creates the entery in doucument model but does not store in actual database model

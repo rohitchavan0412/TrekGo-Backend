@@ -25,6 +25,18 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMe = catchAsync(async (req, res, next) => {
+  const docMe = await User.findById(req.user.id)
+  if (!docMe) {
+    return next(new AppError('No user found', 400))
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: docMe
+  });
+})
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   // donot update the user password over here
   if (req.body.password || req.body.passwordConfirm) {
@@ -55,30 +67,50 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not ate define'
-  });
-};
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not ate define'
-  });
-};
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not ate define'
-  });
-};
+exports.getUser = catchAsync(async (req, res, next) => {
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route not ate define'
+  const user = await User.findById(req.params.id)
+  if (!user) {
+    return next(new AppError('No user found', 400))
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: user
   });
-};
+});
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(new AppError('This route is not for password update', 400));
+  }
+
+  // we dont want the user to change the role[from user to admin] so we filter the body object
+  const filterBody = filterObj(req.body, 'name', 'email');
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, filterBody, {
+    new: true, // by doing true it will return the new updated object
+    runValidators: true
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser
+    }
+  });
+});
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+
+  const user = await User.findByIdAndDelete(req.params.id)
+  if (!user) {
+    return next(new AppError('No user by this Id in the collectons', 400))
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

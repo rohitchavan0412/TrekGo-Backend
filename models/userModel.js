@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     validate: {
       // only work on SAVE and Create
-      validator: function(el) {
+      validator: function (el) {
         return el === this.password; // check if passwordConfirm with the password to see both are same or not
       },
       message: 'Password are not same'
@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   // only run it the password is modified
   if (!this.isModified('password')) return next();
 
@@ -64,14 +64,14 @@ userSchema.pre('save', async function(next) {
 });
 
 //It is an instance method ,this method will be available on all the document of the collection
-userSchema.methods.correctPassword = async function(
+userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -84,13 +84,13 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
 };
 
 //query middleware
-userSchema.pre(/^find/, function(next) {
+userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
 
 // this function for password reset to send a token and check it while changing the password
-userSchema.methods.createPasswordResetToken = function() {
+userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
   // this will be store in the  document and will only be valid for 10 min
@@ -106,7 +106,7 @@ userSchema.methods.createPasswordResetToken = function() {
   return resetToken;
 };
 
-userSchema.pre('save', function() {
+userSchema.pre('save', function () {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;

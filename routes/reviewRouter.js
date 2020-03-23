@@ -12,8 +12,15 @@ router
     reviewController.createReview
   )
 
-// router.route('/:id')
-//   .get(reviewController.getAllReviews)
-//   .patch(reviewController.createReview)
+// All route from this onward are protected and used by only admin and user
+router.use(authController.protect)
+router.route('/:id')
+  .get(reviewController.getReview)
+  .delete(authController.restrictTo('user', 'admin'),
+    reviewController.deleteReview
+  )
+  .patch(authController.restrictTo('user', 'admin'),
+    reviewController.updateReview
+  )
 
 module.exports = router 

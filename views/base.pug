@@ -1,0 +1,176 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel='stylesheet', href='/css/style.css')
+    link(rel="stylesheet", href='/css/animate.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Pacifico&display=swap')
+    title TrekGo | Live the Natour Along
+  
+  body
+    header.header
+      div.header__logo-box
+        svg.header__logo--icon
+          use(xlink:href='/images/sprite.svg#icon-renren') 
+      
+      nav.content
+        ul.main-nav
+          li.main-nav__item
+            a.btn(href='#js--scroll-to-about') About
+
+          li.main-nav__item
+            a.btn(href="#") login
+
+          li.main-nav__item 
+            a.btn(href="#") Sign in
+      
+      h1.heading-primary
+        span.heading-primary--main TrekGo
+        span.heading-primary--sub Live the Natour Along
+
+    main
+      section.section-about
+        div.center-text
+          h2.heading-sec  Explore the World
+          h3.heading-aboutUs
+            p We seek to provide most authentic content from athlets,adventures,
+              br
+              | explorers and travellers around the world.Our long-term mission is to educate, 
+              br
+              | insipre and enable all people to expirence & protect wildness.
+
+        div.row.js--wp-1
+          div.col-1-of-3
+            div.aboutImg
+              div.picture1
+
+          div.col-1-of-3
+            div.aboutImg
+              div.picture2
+
+          div.col-1-of-3
+            div.aboutImg
+              div.picture3
+
+    main
+      section.section-video
+        div.center-text
+          h2.heading-video Look the way of us
+          h3.heading-videoUs
+            p
+              span.quot &quot; 
+              | STOP WORRYING ABOUT THE POTHOLES IN THE ROAD AND ENJOY THE JOURNEY
+              span.quot &quot;
+        
+          div.main-video
+            video.fitcover(controls width='100%' poster='/images/videocover.jpg')
+              source(src='/video/Hiking Mount Oberlin... Travel Edit.mp4', type='video/mp4') 
+
+          div.center-text
+            h3.heading-videoUs
+              p
+                span.quot &quot;
+                | Traveling – it leaves you speechless, then turns you into a storyteller.
+                span.quot &quot; 
+
+    section.review
+      div.center-text
+        h1.review-headcenter We make people happy 
+
+      div.row
+        div.story.js--wp-2
+          figure.story__shape 
+          div.story__text
+            h3.story__text--Owner.margin-bottom1 Namratha
+              p.margin-top1 “This trip was totally amazing. beautiful scenery, wonderful guides, great food and full of lots off active adventures.”
+
+      div.row.row2
+        div.story.js--wp-2
+          figure.story__shape
+          div.story__text
+            h3.story__text--Owner.margin-bottom1 Mrunal
+              p.margin-top1 “This trip was totally amazing.beautiful scenery, wonderful guides, great food and full of lots off active adventures.”
+
+    section.section-tour
+      div.center-text.getin-center
+        h2.heading-video Enjoy the world 
+      div.row.js--wp-3
+        div.col-1-of-2
+          div.card
+            div.card__picture.card__picture--1
+            div.card__details
+              ul
+                li 2 day
+                li Up to 20 people
+                li 2 tour guides
+                li Diffculty: Easy
+
+        div.col-1-of-2
+          div.card
+            div.card__picture.card__picture--2
+            div.card__details
+              ul
+                li 2 day
+                li Up to 20 people
+                li 2 tour guides
+                li Diffculty: Easy
+      
+      div
+        a.button.button--green(href="#") let's Get in
+
+    footer#js--scroll-to-about.footer
+      div.footerContainer
+        div.footerContainer__leftinfo
+          span.footerContainer__leftinfo--span Connect US
+          nav.leftcontent
+            ul.leftside-nav
+              li.leftside-nav--item
+                a.leftside-nav__link(href='http://goo.gl/maps/tKg5nG5VJeazPcwU9')
+                  svg.leftside-nav__icon
+                    use(xlink:href='/images/sprite.svg#icon-location')
+                  span.leftside-nav__span location
+
+              li.leftside-nav--item
+                a.leftside-nav__link(href='https://www.facebook.com/harshal.abnave.71')
+                  svg.leftside-nav__icon
+                    use(xlink:href='/images/sprite.svg#icon-facebook')
+                  span.leftside-nav__span facebook
+
+              li.leftside-nav--item
+                a.leftside-nav__link(href='https://www.twitter.com/abnaveharshal')
+                  svg.leftside-nav__icon
+                    use(xlink:href='/images/sprite.svg#icon-twitter')
+                  span.leftside-nav__span twitter
+
+              li.leftside-nav--item
+                a.leftside-nav__link(href='https://www.instagram.com/abnaveharshal16')
+                  svg.leftside-nav__icon
+                    use(xlink:href='/images/sprite.svg#icon-instagram-with-circle')
+                  span.leftside-nav__span instagram
+        
+        div.footerContainer__rightinfo
+          span.footerContainer__rightinfo--span USEFUL LINKS
+            nav.rightcontent
+              ul.rightside-nav
+                li.rightside-nav--item
+                  a.rightside-nav__link(href='https://documenter.getpostman.com/view/8024102/SzYT424o?version=latest')
+                    svg.rightside-nav__icon
+                      use(xlink:href='/images/sprite.svg#icon-file-code-o')
+                    span.rightside-nav__span API Document
+
+                li.rightside-nav--item 
+                  a.rightside-nav__link(href='https://github.com/HarshalAbnave/TrekGo-Backend')
+                    svg.rightside-nav__icon
+                      use(xlink:href='/images/sprite.svg#icon-github') 
+                    span.rightside-nav__span Github
+      
+      p.footer__message Made with  
+        span.footer__message--heart &hearts; 
+        | in india
+
+script(type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
+script(type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.5/waypoints.min.js")
+script(type='text/javascript' src='/scipt/script.js' defer='defer')

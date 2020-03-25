@@ -13,12 +13,24 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 
+//
+const path = require('path')
+
 //getting the global Error handler
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
+//set the template engine
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
+
 //Global Middlewares
+
+//to server the static file
+app.use(express.static(path.join(__dirname, 'resources')));
+
+
 //https://github.com/helmetjs/helmet
 //set secure HTTP
 app.use(helmet());
@@ -56,8 +68,7 @@ app.use(
     ]
   })
 );
-//to server the static file
-app.use(express.static(`${__dirname}/public`));
+
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -72,6 +83,9 @@ app.use((req, res, next) => {
 //app.patch('/api/v1/tours/:id', updateTour);
 //app.delete('/api/v1/tours/:id', deleteTour);
 
+app.get('/', (req, res) => {
+  res.status(200).render('base')
+})
 //Router Mountaing
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);

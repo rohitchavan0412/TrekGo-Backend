@@ -1,0 +1,42 @@
+extends baseOverview
+
+block content
+  div.main
+    div.contaniner
+
+      each tour in tours 
+        div.card
+          img.card__header(src=`../images/${tour.imageCover}`, alt=`${tour.name}`)
+
+          div.card__details
+            h1.card--title= tour.name
+            h4.card--sub-heading=`${tour.difficulty} ${tour.duration}-days`
+            p.card--ratings
+              span.card--value=tour.ratingsAverage 
+              span.card--rating-text  rating
+            p.card--sub-text=tour.summary
+
+            div.card--data
+              svg.card--icon
+                use(xlink:href='/images/sprite.svg#icon-location')
+              span=tour.startLocation.description
+
+            div.card--data
+              svg.card--icon
+                use(xlink:href='/images/sprite.svg#icon-calendar')
+              span=tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+
+            div.card--data
+              svg.card--icon
+                use(xlink:href='/images/sprite.svg#icon-flag')
+              span= `${tour.locations.length} stops`
+
+            div.card--data
+              svg.card--icon
+                use(xlink:href='/images/sprite.svg#icon-user')
+              span=`${tour.maxGroupSize} people` 
+
+          div.card__footer
+            p.card--price
+              span.card--value=`₹${tour.price} `
+              span.card--price-text per person

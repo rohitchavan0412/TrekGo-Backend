@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRouter')
+const viewRouter = require('./routes/viewRoutes')
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -83,10 +84,9 @@ app.use((req, res, next) => {
 //app.patch('/api/v1/tours/:id', updateTour);
 //app.delete('/api/v1/tours/:id', deleteTour);
 
-app.get('/', (req, res) => {
-  res.status(200).render('base')
-})
+
 //Router Mountaing
+app.use('/', viewRouter)
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter)

@@ -1,0 +1,144 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
+
+body {
+  box-sizing: border-box; }
+
+.center-text {
+  text-align: center; }
+
+.margin-bottom1 {
+  margin-bottom: 2rem; }
+
+.margin-top1 {
+  margin-top: 2rem; }
+
+body {
+  font-family: 'Lato','Atlas Grotesk Web',sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #eeeeee;
+  padding: 0.2rem; }
+
+.copywrite {
+  padding: 2rem 0;
+  font-size: 2.5rem;
+  display: block;
+  text-align: center;
+  letter-spacing: .6rem;
+  margin-top: 3rem;
+  color: #616161; }
+
+.form {
+  padding: 0 5rem; }
+  .form__group {
+    margin-bottom: 4rem; }
+  .form__input {
+    font-size: 1.5rem;
+    padding: 1rem 1rem;
+    border-radius: 2px;
+    border: none;
+    letter-spacing: .2rem;
+    width: 100%;
+    display: block;
+    font-family: inherit;
+    background-color: #f2f2f2e3;
+    border-bottom: 3px solid transparent; }
+  .form__input:focus {
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(204, 204, 204, 0.616);
+    border-bottom: 3px solid #55c57a; }
+  .form__label {
+    font-size: 1.6rem;
+    color: #777;
+    display: block;
+    margin-bottom: 1rem;
+    letter-spacing: .2rem; }
+
+.book__form {
+  margin: 0 auto; }
+
+.button {
+  font-size: 1.6rem;
+  padding: 1.4rem 3rem;
+  border-radius: 10rem;
+  text-transform: uppercase;
+  display: block;
+  text-decoration: none;
+  font-weight: 400;
+  border: none;
+  margin: 0 auto;
+  cursor: pointer; }
+  .button--green {
+    background-color: #55c57a;
+    color: #fff; }
+
+.signup-login-main {
+  background-color: #FFFFFF;
+  height: 99.6vh;
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative; }
+
+.book {
+  background-color: white;
+  border-radius: .6rem;
+  margin: 0 auto;
+  align-items: center;
+  box-shadow: 0 1rem 2rem rgba(112, 112, 112, 0.589); }
+  .book--signup {
+    height: 63rem;
+    width: 42rem; }
+  .book--login {
+    height: 40rem;
+    width: 42rem; }
+
+.heading--design {
+  padding: 1rem;
+  letter-spacing: .2rem;
+  color: #55c57a;
+  text-transform: uppercase;
+  font-size: 2.6rem; }
+
+.Main--logo {
+  position: absolute;
+  display: block;
+  top: 1rem;
+  left: -8rem; }
+
+.logo--modififier {
+  fill: #616161;
+  height: 7rem; }
+
+.alert {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 9999;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 1.6rem 15rem;
+    -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+  }
+  .alert--success {
+    background-color: #20bf6b;
+  }
+  .alert--error {
+    background-color: #eb4d4b;
+  }

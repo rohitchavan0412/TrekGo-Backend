@@ -21,12 +21,20 @@ html
           li.main-nav__item
             a.btn(href='#js--scroll-to-about') About
 
-          li.main-nav__item
-            a.btn(href="#") login
+          if user
+            li.main-nav__item
+              a.btn.logout logout
 
-          li.main-nav__item 
-            a.btn(href="#") Sign in
-      
+            li.main-nav__item 
+              a.btn(href="/me") profile
+          
+          else
+            li.main-nav__item
+              a.btn(href='/login') login
+
+            li.main-nav__item 
+              a.btn(href="#") Sign in
+        
       h1.heading-primary
         span.heading-primary--main TrekGo
         span.heading-primary--sub Live the Natour Along
@@ -119,7 +127,7 @@ html
                 li Diffculty: Easy
       
       div
-        a.button.button--green(href="#") let's Get in
+        a.button.button--green(href='/overview') let's Get in
 
     footer#js--scroll-to-about.footer
       div.footerContainer
@@ -171,6 +179,8 @@ html
         span.footer__message--heart &hearts; 
         | in india
 
+script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
 script(type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
 script(type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.5/waypoints.min.js")
 script(type='text/javascript' src='/scipt/script.js' defer='defer')
+script(type='text/javascript' src='/javaScript/bundle.js')

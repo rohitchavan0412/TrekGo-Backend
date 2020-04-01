@@ -1,0 +1,89 @@
+extends tourBase
+
+block content
+  header.header
+    section.header__section
+      div.header__section-overlay &nbsp;
+      img.header__section-img(src=`/images/${tour.imageCover}`, alt=`${tour.name}`)
+    h1.header__heading=tour.name
+    h6.header__days=`${tour.duration}days`
+    h6.header__location=tour.startLocation.description
+
+  section.summary
+    h1.summary__tour=`About ${tour.name}` 
+    -const paragraphs = tour.description.split('\n');
+    each p in paragraphs
+      div.summary__decription=p
+
+
+  section.tourinfo
+    div.container
+      div.rig
+        h1.quickFact Quick facts
+        section.container__right--detail
+          div.sb
+            span.sb-l Next date
+            span.sb-r=tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+          div.sb
+            span.sb-l Difficulty
+            span.sb-r=tour.difficulty
+          div.sb
+            span.sb-l Participants
+            span.sb-r=`${tour.maxGroupSize} people`
+          div.sb
+            span.sb-l Rating
+            span.sb-r=`${tour.ratingsAverage}/5`
+
+      div.lef
+        h1.guidesInfo Your tour guides
+        section.container__left--detail
+          each guide in tour.guides
+            div.sb
+              -if(guide.role === 'lead-guide')
+                span.sb-l lead guide
+                span.sb-r=guide.name
+              -if(guide.role === 'guide')
+                span.sb-l Tour guide
+                span.sb-r=guide.name
+
+  section.tourImages
+    each img in tour.images
+      div
+        img.tourImages__img(src=`/images/${img}`, alt=`{img}`)
+    
+
+  section.section-map
+    div#map(data-locations=`${JSON.stringify(tour.locations)}`)
+
+  section.section-reviews
+    div.reviews
+      each review in tour.reviews
+        div.reviews__card
+          div.reviews__avatar
+            h6.reviews__user=review.user.name
+          p.reviews__text=review.review
+          div.reviews__rating
+            - var n = 0;
+            while n < review.rating
+              svg.reviews__star.reviews__star--active
+                use(xlink:href='/images/sprite.svg#icon-star')
+                -n++
+            
+
+  section.buy
+    div
+      button.btn.btn--green Book tour now!
+
+  footer.footer
+    ul.footer__nav
+      li
+        a(href="/") Home
+      li
+        a(href="#") About us
+      li
+        a(href="#") Download App
+      li
+        a(href="#") Contact us
+    p.footer__copyright &copy;All rights reserved.
+
+

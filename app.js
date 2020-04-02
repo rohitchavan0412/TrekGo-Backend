@@ -55,6 +55,7 @@ app.use('/api', limiter);
 
 //Body parser, reading data from bady into req.bady
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }))
 app.use(cookieParser());
 
 // NOSql injection
@@ -78,7 +79,7 @@ app.use(
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 

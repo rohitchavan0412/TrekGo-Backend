@@ -72,7 +72,10 @@ block content
 
   section.buy
     div
-      button.btn.btn--green Book tour now!
+      if user
+        button.btn.btn--green#book-tour(data-tour-id=`${tour.id}`) Book tour now!
+      else
+        a.btn.btn--green(href='/login') Login to book
 
   footer.footer
     ul.footer__nav

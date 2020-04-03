@@ -6,6 +6,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRouter')
 const viewRouter = require('./routes/viewRoutes')
+const bookingRouter = require('./routes/bookingRoutes')
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -16,6 +17,7 @@ const hpp = require('hpp');
 
 //to tell express the patg of resources 
 const path = require('path')
+
 
 //getting the global Error handler
 const AppError = require('./utils/appError');
@@ -88,6 +90,8 @@ app.use('/', viewRouter)
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter)
+app.use('/api/v1/bookings', bookingRouter)
+
 
 app.all('*', (req, res, next) => {
   const err = new AppError(`Cant find ${req.originalUrl} on this server`, 404);

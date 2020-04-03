@@ -12,7 +12,14 @@ module.exports = class Email {
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
-      return 1;
+      return nodemailer.createTransport({
+        host: 'smtp-relay.sendinblue.com',
+        port: 587,
+        auth: {
+          user: 'abnaveharshal@gmail.com',
+          pass: '7kg5N8W3LHmTaQCF'
+        }
+      });
     }
 
     return nodemailer.createTransport({

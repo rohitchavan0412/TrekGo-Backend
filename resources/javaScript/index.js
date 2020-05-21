@@ -23,7 +23,7 @@ if (loginForm) {
 
 
 if (logoutButton) {
-  //console.log('ii')
+  console.log('ii')
   logoutButton.addEventListener('click', logout);
 }
 

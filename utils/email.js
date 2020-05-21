@@ -13,11 +13,12 @@ module.exports = class Email {
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
       return nodemailer.createTransport({
-        host: 'smtp-relay.sendinblue.com',
-        port: 587,
+        // host: 'smtp-relay.sendinblue.com',
+        //port: 587,
+        service: 'gmail',
         auth: {
-          user: 'abnaveharshal@gmail.com',
-          pass: '7kg5N8W3LHmTaQCF'
+          user: process.env.GMAIL_USERNAME,
+          pass: process.env.GMAIL_PASSWORD //'7kg5N8W3LHmTaQCF'
         }
       });
     }
@@ -56,7 +57,7 @@ module.exports = class Email {
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'Welcome to TrkGo')
+    await this.send('welcome', 'Welcomes to the family')
   }
 
   async sendPasswordReset() {

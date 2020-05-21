@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Tour = require('./tourModel')
+
 
 const bookingSchema = new mongoose.Schema({
   tour: {
@@ -32,6 +32,7 @@ bookingSchema.pre(/^find/, function (next) {
     path: 'tour',
     select: 'name'
   })
+  next();
 })
 
 const Booking = mongoose.model('Booking', bookingSchema)

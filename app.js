@@ -28,7 +28,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express();
 
-//set the template engine
+//set the template engine 
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 
@@ -38,7 +38,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'resources')));
 
 
-//https://github.com/helmetjs/helmet
+//https://github.com/helmetjs/helmet 
 //set secure HTTP
 app.use(helmet());
 
@@ -65,6 +65,8 @@ app.use(mongoSanitize());
 
 app.use(xss());
 
+//Express middleware to protect against HTTP Parameter Pollution attacks
+//HPP puts array parameters in req.query and/or req.body aside and just selects the last parameter value. You add the middleware and you are done.
 app.use(
   hpp({
     whitelist: [

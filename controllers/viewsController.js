@@ -43,6 +43,10 @@ exports.login = (req, res) => {
   res.status(200).render('login')
 }
 
+exports.signup = (req, res) => {
+  res.status(200).render('signup')
+}
+
 exports.getAccount = (req, res) => {
   res.status(200).render('account')
 }

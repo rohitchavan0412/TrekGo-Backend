@@ -242,7 +242,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // get the user from the collections
   const user = await User.findById(req.user.id).select('+password');
 
-  // check the password is correct or not
+  // check the password is correct or not 
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(new AppError('Invalid Password !!', 401));
   }
